@@ -8,8 +8,8 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
-/* 
-@media (prefers-color-scheme: dark) {
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -52,7 +52,7 @@ body {
 }
 
 .btn-primary {
-  @apply rounded bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-800;
+  @apply rounded bg-slate-900 px-4 py-2 text-white transition-all hover:bg-slate-700;
 }
 
 .btn-secondary {
