@@ -1,23 +1,39 @@
 import { notFound } from 'next/navigation';
 
+import { initialData } from '@/seed/seed';
+import { ProductGrid, Title } from '@/components';
+import { Category } from '@/interfaces';
+
+const seedProducts = initialData.products;
+
 interface Props {
   params: {
-    id: string;
+    id: Category;
   };
 }
 
-const categories = ['men', 'women', 'kids'];
+const categories = ['men', 'women', 'kid', 'unisex'];
 
 export default function CategoryPage({ params }: Props) {
   const { id } = params;
+  const products = seedProducts.filter((product) => product.gender === id);
+
+  const labels: Record<Category, string> = {
+    kid: "Kid's articles",
+    men: "Men's articles",
+    unisex: "Unisex's articles",
+    women: "Women's articles",
+  };
 
   if (!categories.includes(id)) {
     notFound();
   }
 
   return (
-    <div>
-      <h1>Category Page</h1>
-    </div>
+    <>
+      <Title title={labels[id]} className='mb-2' />
+
+      <ProductGrid products={products} />
+    </>
   );
 }
