@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { titleFont } from '@/config/fonts';
 
-export const PageNotFound = async () => {
+export const PageNotFound = () => {
   return (
     <div className='flex h-[800px] w-full flex-col-reverse items-center justify-center align-middle md:flex-row'>
       <div className='mx-5 px-5 text-center'>
