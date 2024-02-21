@@ -1,0 +1,1 @@
+export { StockLabel } from './StockLabel';
