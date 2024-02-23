@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface State {
   isSideMenuOpen: boolean;
 
+  //Métodos ----
   openSideMenu: () => void;
   closeSideMenu: () => void;
 }
