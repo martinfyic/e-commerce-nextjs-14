@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: Props) {
   }
 
   return (
-    <div className='mb-20 mt-5 grid grid-cols-1 gap-3 md:grid-cols-3'>
+    <div className='mb-20 mt-5 grid grid-cols-1 gap-3 md:mx-auto md:max-w-5xl md:grid-cols-3'>
       {/* Slideshow */}
       <div className='col-span-1 md:col-span-2'>
         {/* Desktop slideshow */}
