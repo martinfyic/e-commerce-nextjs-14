@@ -8,19 +8,22 @@ interface State {
   cart: CartProduct[];
 
   //Métodos ----
+  getSummaryInformation: () => {
+    itemsInCart: number;
+    subTotal: number;
+    tax: number;
+    total: number;
+  };
+
   addProductToCart: (product: CartProduct) => void;
-  getTotalItems: () => number;
+  updateProductQuantity: (product: CartProduct, quantity: number) => void;
+  removeProduct: (product: CartProduct) => void;
 }
 
 export const useCartStore = create<State>()(
   persist(
     (set, get) => ({
       cart: [],
-
-      getTotalItems: () => {
-        const { cart } = get();
-        return cart.reduce((total, item) => total + item.quantity, 0);
-      },
 
       addProductToCart: (product: CartProduct) => {
         const { cart } = get();
@@ -48,6 +51,47 @@ export const useCartStore = create<State>()(
         });
 
         set({ cart: updateCartProduct });
+      },
+
+      updateProductQuantity: (product: CartProduct, quantity: number) => {
+        const { cart } = get();
+        const updatedCartProduct = cart.map((item) => {
+          if (item.id === product.id && item.size === product.size) {
+            return { ...item, quantity: quantity };
+          }
+          return item;
+        });
+
+        set({ cart: updatedCartProduct });
+      },
+
+      removeProduct: (product: CartProduct) => {
+        const { cart } = get();
+        const removeProductToCart = cart.filter(
+          (item) => item.id !== product.id || item.size !== product.size
+        );
+
+        set({ cart: removeProductToCart });
+      },
+
+      getSummaryInformation: () => {
+        const { cart } = get();
+
+        const subTotal = cart.reduce(
+          (subTotal, product) => product.quantity * product.price + subTotal,
+          0
+        );
+
+        const tax = subTotal * 0.22;
+        const total = subTotal + tax;
+        const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+
+        return {
+          itemsInCart,
+          subTotal,
+          tax,
+          total,
+        };
       },
     }),
     { name: 'shopping-cart' }

@@ -11,7 +11,7 @@ import { useCartStore, useUiStore } from '@/store';
 
 export const TopMenu = () => {
   const openMenu = useUiStore((store) => store.openSideMenu);
-  const getTotalItemsInCart = useCartStore((store) => store.getTotalItems());
+  const { itemsInCart } = useCartStore((store) => store.getSummaryInformation());
 
   const [loaded, setLoaded] = useState(false);
 
@@ -59,9 +59,9 @@ export const TopMenu = () => {
         </Link>
         <Link href='/cart' className='mx-2'>
           <div className='relative'>
-            {loaded && getTotalItemsInCart > 0 && (
+            {loaded && itemsInCart > 0 && (
               <span className='fade-in absolute -right-2 -top-2 rounded-full bg-slate-950 px-1 text-xs font-bold text-slate-300'>
-                {getTotalItemsInCart}
+                {itemsInCart}
               </span>
             )}
 
