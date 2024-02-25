@@ -3,6 +3,11 @@ import Link from 'next/link';
 import { Title } from '@/components';
 import { OrderSummary, ProductsInCart } from './ui';
 
+export const metadata = {
+  title: 'Cart',
+  description: 'Shopping cart page',
+};
+
 export default function CartPage() {
   return (
     <div className='mb-72 flex items-center justify-center px-10 sm:px-0'>
