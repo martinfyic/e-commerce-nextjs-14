@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useCartStore } from '@/store';
 import { QuantitySelector } from '@/components';
-import Link from 'next/link';
+import { currencyFormat } from '@/utils/currencyFormat';
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
@@ -48,7 +49,7 @@ export const ProductsInCart = () => {
                 {prod.size} - {prod.title}
               </p>
             </Link>
-            <p>${prod.price}</p>
+            <p>{currencyFormat(prod.price)}</p>
             <QuantitySelector
               quantity={prod.quantity}
               onQuantityChanged={(quantity) => updateProductQuantity(prod, quantity)}
