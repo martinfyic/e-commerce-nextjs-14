@@ -2,14 +2,20 @@ import prisma from '../lib/prisma';
 import { initialData } from './seed';
 
 async function main() {
-  //1. Eliminamos todos los registros previos de la DB
+  //1. Eliminamos todos los registros previos de la DB tener en cuenta las relaciones antes de eliminar
   prisma.productImage.deleteMany();
   prisma.product.deleteMany();
+  prisma.user.deleteMany();
   prisma.category.deleteMany();
 
-  const { categories, products } = initialData;
+  const { categories, products, users } = initialData;
 
-  //Crear Categories
+  //Crear Usuarios ------------
+  await prisma.user.createMany({
+    data: users,
+  });
+
+  //Crear Categories ------------
   const categoriesData = categories.map((category) => ({
     name: category,
   }));
@@ -32,7 +38,7 @@ async function main() {
     {} as Record<string, string> // <string=shirt, string=categoryId>
   );
 
-  //Products
+  //Crear Products ------------
   products.forEach(async (product) => {
     const { images, type, ...rest } = product;
     const dbProduct = await prisma.product.create({

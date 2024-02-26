@@ -6,6 +6,7 @@ import { Gender } from '@prisma/client';
 
 import { Pagination, ProductGrid, Title } from '@/components';
 import { getPaginatedProductWithImages } from '@/actions';
+import { Metadata, ResolvingMetadata } from 'next';
 
 interface Props {
   params: {
@@ -16,6 +17,19 @@ interface Props {
   };
 }
 
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const gender = params.gender;
+
+  return {
+    title: `${gender.toLocaleUpperCase()}'s` || 'Product not found',
+    description: `All ${gender}'s items` || '',
+  };
+}
+
 const categories = ['men', 'women', 'kid', 'unisex'];
 
 export default async function GenderPage({ params, searchParams }: Props) {
@@ -23,7 +37,7 @@ export default async function GenderPage({ params, searchParams }: Props) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { products, currentPage, totalPages } = await getPaginatedProductWithImages({
+  const { products, totalPages } = await getPaginatedProductWithImages({
     page,
     gender: gender as Gender,
   });
