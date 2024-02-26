@@ -59,3 +59,7 @@ body {
 .btn-secondary {
   @apply rounded bg-gray-200 px-4 py-2 text-black transition-all hover:bg-gray-300;
 }
+
+.btn-disabled {
+  @apply rounded bg-slate-600 px-4 py-2 text-white transition-all;
+}
