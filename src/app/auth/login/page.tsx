@@ -1,6 +1,11 @@
 import { titleFont } from '@/config/fonts';
 import { LoginForm } from './ui/LoginForm';
 
+export const metadata = {
+  title: 'Sign In',
+  description: 'Login page on the sigma shop website',
+};
+
 export default function LoginPage() {
   return (
     <div className='flex min-h-screen flex-col pt-32 sm:pt-52'>

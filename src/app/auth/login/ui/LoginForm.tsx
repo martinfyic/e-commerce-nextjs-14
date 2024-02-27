@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 
@@ -9,7 +10,14 @@ import { authenticate } from '@/actions';
 import clsx from 'clsx';
 
 export const LoginForm = () => {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [message, dispatch] = useFormState(authenticate, undefined);
+
+  useEffect(() => {
+    if (message === 'Success') {
+      //utilizo window.location en vez de usar router.replace para que cuando hagamos el login se actualice y cambie el estado del sidebar
+      window.location.replace('/');
+    }
+  }, [message]);
 
   return (
     <form action={dispatch} className='flex flex-col'>
@@ -28,14 +36,14 @@ export const LoginForm = () => {
       />
 
       <div className='my-2  h-8 ' aria-live='polite' aria-atomic='true'>
-        {errorMessage && (
+        {message && message !== 'Success' && (
           <div
             className='flex items-center justify-center space-x-1 rounded bg-red-100 py-1'
             aria-live='polite'
             aria-atomic='true'
           >
             <IoAlertCircleOutline size={30} className='h-5 w-5 text-red-500' />
-            <p className='text-md font-semibold text-red-500'>{errorMessage}</p>
+            <p className='text-md font-semibold text-red-500'>{message}</p>
           </div>
         )}
       </div>
