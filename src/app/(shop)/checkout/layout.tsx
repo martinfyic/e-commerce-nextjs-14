@@ -1,14 +1,16 @@
-import { auth } from '@/auth.config';
-import { redirect } from 'next/navigation';
+//* Forma de implementar control sin middleware, con en layout, si no esta autenticado lo redirige al login
 
-export default async function CheckoutLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await auth();
+// import { auth } from '@/auth.config';
+// import { redirect } from 'next/navigation';
 
-  if (!session?.user) redirect('/auth/login?redirectTo=/checkout/address');
+// export default async function CheckoutLayout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   const session = await auth();
 
-  return <>{children}</>;
-}
+//   if (!session?.user) redirect('/auth/login?redirectTo=/checkout/address');
+
+//   return <>{children}</>;
+// }

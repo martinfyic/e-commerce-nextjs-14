@@ -13,17 +13,16 @@ export const authConfig: NextAuthConfig = {
   },
 
   callbacks: {
-    //TODO implementar middleware
+    // Protección de ruta /checkout/address
     authorized({ auth, request: { nextUrl } }) {
-      // console.log({ auth });
-      // const isLoggedIn = !!auth?.user;
-      // const isOnDashboard = nextUrl.pathname.startsWith('/');
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/dashboard', nextUrl));
-      // }
+      const isLoggedIn = !!auth?.user;
+      const isOnCheckout = nextUrl.pathname.startsWith('/checkout/address');
+      if (isOnCheckout) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } else if (isLoggedIn) {
+        return Response.redirect(new URL('/checkout/address', nextUrl));
+      }
       return true;
     },
 
