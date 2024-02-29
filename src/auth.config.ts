@@ -6,6 +6,8 @@ import bcrypt from 'bcryptjs';
 
 import prisma from '@/lib/prisma';
 
+const authenticatedRoutes = ['/checkout/address', '/profile'];
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
@@ -16,12 +18,13 @@ export const authConfig: NextAuthConfig = {
     // Protección de ruta /checkout/address
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnCheckout = nextUrl.pathname.startsWith('/checkout/address');
-      if (isOnCheckout) {
+      const isAuthRoute = authenticatedRoutes.includes(nextUrl.pathname);
+      if (isAuthRoute) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        return Response.redirect(new URL('/checkout/address', nextUrl));
+        // return NextResponse.redirect(new URL('/checkout/address', nextUrl));
+        return true;
       }
       return true;
     },
