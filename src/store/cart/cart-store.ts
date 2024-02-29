@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-
-import { CartProduct } from '@/interfaces';
 // persist nos permite guardar en el localStorage
 import { persist } from 'zustand/middleware';
+
+import { CartProduct } from '@/interfaces';
 
 interface State {
   cart: CartProduct[];

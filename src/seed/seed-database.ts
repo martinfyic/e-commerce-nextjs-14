@@ -1,18 +1,28 @@
 import prisma from '../lib/prisma';
 import { initialData } from './seed';
+import { countries } from './seed-countries';
 
 async function main() {
   //1. Eliminamos todos los registros previos de la DB tener en cuenta las relaciones antes de eliminar
-  prisma.productImage.deleteMany();
-  prisma.product.deleteMany();
-  prisma.user.deleteMany();
-  prisma.category.deleteMany();
+  //Sin relación
+  await prisma.user.deleteMany();
+  await prisma.country.deleteMany();
+
+  //con relación, ordenado de menor relación a mayor
+  await prisma.productImage.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
 
   const { categories, products, users } = initialData;
 
   //Crear Usuarios ------------
   await prisma.user.createMany({
     data: users,
+  });
+
+  //Creamos los países
+  await prisma.country.createMany({
+    data: countries,
   });
 
   //Crear Categories ------------
