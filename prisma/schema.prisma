@@ -70,3 +70,8 @@ model User {
   role          Role      @default(user)
   avatar        String?
 }
+
+model Country {
+  id   String @id
+  name String
+}
