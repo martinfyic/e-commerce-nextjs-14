@@ -5,6 +5,7 @@ import { countries } from './seed-countries';
 async function main() {
   //1. Eliminamos todos los registros previos de la DB tener en cuenta las relaciones antes de eliminar
   //Sin relación
+  await prisma.userAddress.deleteMany();
   await prisma.user.deleteMany();
   await prisma.country.deleteMany();
 
