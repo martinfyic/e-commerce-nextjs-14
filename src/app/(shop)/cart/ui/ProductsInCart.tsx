@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useCartStore } from '@/store';
 import { QuantitySelector } from '@/components';
 import { currencyFormat } from '@/utils/currencyFormat';
+import { ProductsInCartSkeleton } from './ProductsInCartSkeleton';
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
@@ -19,7 +20,7 @@ export const ProductsInCart = () => {
   }, []);
 
   if (!loaded) {
-    return <p>Loading...</p>;
+    return <ProductsInCartSkeleton />;
   }
 
   return (
