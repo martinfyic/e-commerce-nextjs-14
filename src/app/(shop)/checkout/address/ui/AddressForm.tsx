@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
+import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { IoArrowForwardOutline } from 'react-icons/io5';
@@ -9,8 +11,6 @@ import { IoArrowForwardOutline } from 'react-icons/io5';
 import { Address, Country } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { deleteUserAddress, setUserAddress } from '@/actions';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 type FormInput = {
   firstName: string;
@@ -58,12 +58,11 @@ export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
   }, [getAddress]);
 
   const onSubmit = async (data: FormInput) => {
-    setAddress(data);
-
-    const { remembreAddress, ...address } = data;
+    const { remembreAddress, ...restAddress } = data;
+    setAddress(restAddress);
 
     if (data.remembreAddress) {
-      await setUserAddress(address, session!.user.id);
+      await setUserAddress(restAddress, session!.user.id);
     } else {
       await deleteUserAddress(session!.user.id);
     }
