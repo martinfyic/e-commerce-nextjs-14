@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
+import { OrderSummarySkeleton } from './OrderSummarySkeleton';
 
 export const OrderSummary = () => {
   const [loaded, setLoaded] = useState(false);
@@ -17,7 +18,7 @@ export const OrderSummary = () => {
   }, []);
 
   if (!loaded) {
-    return <p>Loading...</p>;
+    return <OrderSummarySkeleton />;
   }
 
   return (
