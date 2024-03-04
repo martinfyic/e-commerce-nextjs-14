@@ -6,6 +6,7 @@ import { PlaceOrderSkeleton } from './PlaceOrderSkeleton';
 import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import clsx from 'clsx';
+import { placeOrder } from '@/actions';
 
 export const PlaceOrder = () => {
   const [loaded, setLoaded] = useState(false);
@@ -25,7 +26,7 @@ export const PlaceOrder = () => {
     return <PlaceOrderSkeleton />;
   }
 
-  const onPlaceOrder = () => {
+  const onPlaceOrder = async () => {
     setIsPlacingOrder(true);
 
     const productToOrder = cart.map((prod) => ({
@@ -33,6 +34,8 @@ export const PlaceOrder = () => {
       quantity: prod.quantity,
       size: prod.size,
     }));
+
+    const resp = await placeOrder(productToOrder, address);
 
     setIsPlacingOrder(false);
   };

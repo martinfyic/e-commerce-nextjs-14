@@ -101,13 +101,13 @@ model UserAddress {
 }
 
 model Order {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   subTotal     Float
   tax          Float
   total        Float
   itemsInOrder Int
-  isPaid       Boolean
-  paidAt       DateTime
+  isPaid       Boolean   @default(false)
+  paidAt       DateTime?
 
   createdAt DateTime @default(now())
   updatedAr DateTime @updatedAt
@@ -120,7 +120,7 @@ model Order {
 
 model OrderItem {
   id       String @id @default(uuid())
-  quentity Int
+  quantity Int
   price    Float
   size     Size
 
