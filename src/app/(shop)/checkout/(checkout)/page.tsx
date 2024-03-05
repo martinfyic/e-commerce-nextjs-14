@@ -1,5 +1,6 @@
+// TODO crear validación de que si tenemos 0 productos en carrito redirigir al usuario al home
+
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { IoCartOutline } from 'react-icons/io5';
 
