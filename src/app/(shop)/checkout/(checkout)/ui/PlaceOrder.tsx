@@ -2,21 +2,26 @@
 
 import { useEffect, useState } from 'react';
 
+import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
+
 import { PlaceOrderSkeleton } from './PlaceOrderSkeleton';
 import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
-import clsx from 'clsx';
 import { placeOrder } from '@/actions';
 
 export const PlaceOrder = () => {
+  const { replace } = useRouter();
   const [loaded, setLoaded] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const address = useAddressStore((state) => state.shippingAddress);
   const { itemsInCart, subTotal, tax, total } = useCartStore((state) =>
     state.getSummaryInformation()
   );
   const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   useEffect(() => {
     setLoaded(true);
@@ -37,7 +42,14 @@ export const PlaceOrder = () => {
 
     const resp = await placeOrder(productToOrder, address);
 
-    setIsPlacingOrder(false);
+    if (!resp.ok) {
+      setIsPlacingOrder(false);
+      setErrorMessage(resp.message);
+      return;
+    }
+
+    clearCart();
+    replace('/orders/' + resp.order!.id);
   };
 
   return (
@@ -90,6 +102,11 @@ export const PlaceOrder = () => {
             </a>
           </span>
         </p>
+
+        <span className='w-full text-center text-sm font-semibold text-red-500'>
+          {errorMessage}
+        </span>
+
         <button
           onClick={onPlaceOrder}
           className={clsx('flex w-full justify-center', {
