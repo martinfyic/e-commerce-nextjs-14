@@ -92,16 +92,16 @@ export const SideBar = () => {
             <Link
               href='/profile'
               className='mt-10 flex items-center rounded p-2 transition-all hover:bg-slate-200/80'
+              onClick={() => closeMenu()}
             >
               <IoPersonOutline size={20} />
-              <span className='ml-3 text-lg' onClick={closeMenu}>
-                Profile
-              </span>
+              <span className='ml-3 text-lg'>Profile</span>
             </Link>
 
             <Link
-              href='/'
+              href='/orders'
               className='mt-10 flex items-center rounded p-2 transition-all hover:bg-slate-200/80'
+              onClick={() => closeMenu()}
             >
               <IoTicketOutline size={20} />
               <span className='ml-3 text-lg'>Orders</span>
