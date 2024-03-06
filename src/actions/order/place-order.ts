@@ -118,7 +118,6 @@ export const placeOrder = async (productId: ProductToOrder[], address: Address) 
       });
 
       //TODO validar si price === 0 lanzar error
-      console.log(order.itemsInOrder);
 
       // 3. Crear la dirección de la orden
       const { country, ...restAddress } = address;
