@@ -45,8 +45,6 @@ export const getOrderById = async (id: string) => {
       }
     }
 
-    console.log(order);
-
     return {
       ok: true,
       order,
