@@ -1,0 +1,1 @@
+export { PaypalButton } from './PaypalButton';

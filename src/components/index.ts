@@ -1,4 +1,5 @@
+export * from './paypal';
 export * from './product';
 export * from './products';
-export * from './provider';
+export * from './providers';
 export * from './ui';
