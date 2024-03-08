@@ -1,10 +1,15 @@
 'use client';
 
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import type { CreateOrderData, CreateOrderActions } from '@paypal/paypal-js';
+import type {
+  CreateOrderData,
+  CreateOrderActions,
+  OnApproveData,
+  OnApproveActions,
+} from '@paypal/paypal-js';
 
 import { PaypalButtonSkeleton } from './PaypalButtonSkeleton';
-import { setTransactionId } from '@/actions';
+import { paypalCheckPayment, setTransactionId } from '@/actions';
 
 interface Props {
   orderId: string;
@@ -24,6 +29,7 @@ export const PaypalButton = ({ amount, orderId }: Props) => {
       intent: 'CAPTURE',
       purchase_units: [
         {
+          invoice_id: orderId,
           amount: {
             currency_code: 'USD',
             value: roundedAmount,
@@ -41,10 +47,21 @@ export const PaypalButton = ({ amount, orderId }: Props) => {
     return transactionId;
   };
 
+  const onApprove = async (
+    data: OnApproveData,
+    actions: OnApproveActions
+  ): Promise<void> => {
+    const details = await actions.order?.capture();
+    if (!details || !details.id) return;
+
+    // llamamos nuestro server action para realizar la comprobación, el details.id es el transactionId que asociamos a la order.
+    await paypalCheckPayment(details.id);
+  };
+
   return (
     <>
       {isPending ? <PaypalButtonSkeleton /> : null}
-      <PayPalButtons createOrder={createOrder} />
+      <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
     </>
   );
 };
