@@ -16,18 +16,18 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
     // Protección de ruta /checkout/address
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isAuthRoute = authenticatedRoutes.includes(nextUrl.pathname);
-      if (isAuthRoute) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        // return NextResponse.redirect(new URL('/checkout/address', nextUrl));
-        return true;
-      }
-      return true;
-    },
+    // authorized({ auth, request: { nextUrl } }) {
+    // const isLoggedIn = !!auth?.user;
+    // const isAuthRoute = authenticatedRoutes.includes(nextUrl.pathname);
+    // if (isAuthRoute) {
+    //   if (isLoggedIn) return true;
+    //   return false; // Redirect unauthenticated users to login page
+    // } else if (isLoggedIn) {
+    //   // return NextResponse.redirect(new URL('/checkout/address', nextUrl));
+    //   return true;
+    // }
+    // return true;
+    // },
 
     jwt({ token, user }) {
       if (user) {
