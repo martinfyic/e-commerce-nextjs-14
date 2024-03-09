@@ -9,15 +9,19 @@ import { IoAlertCircleOutline } from 'react-icons/io5';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 
-export const LoginForm = () => {
+interface Props {
+  redirectTo?: string;
+}
+
+export const LoginForm = ({ redirectTo = '' }: Props) => {
   const [message, dispatch] = useFormState(authenticate, undefined);
 
   useEffect(() => {
     if (message === 'Success') {
       //utilizo window.location en vez de usar router.replace para que cuando hagamos el login se actualice y cambie el estado del sidebar
-      window.location.replace('/');
+      window.location.replace(redirectTo);
     }
-  }, [message]);
+  }, [message, redirectTo]);
 
   return (
     <form action={dispatch} className='flex flex-col'>
