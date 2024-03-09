@@ -51,7 +51,7 @@ export const Pagination = ({ totalPages }: Props) => {
         <ul className='list-style-none flex'>
           <li>
             <Link
-              className='relative block rounded border-0  bg-transparent px-3 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none'
+              className='relative mr-2 block rounded-lg  border-0 bg-transparent px-2 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none'
               href={createPageUrl(currentPage - 1)}
             >
               <IoChevronBackOutline size={30} />
@@ -77,7 +77,7 @@ export const Pagination = ({ totalPages }: Props) => {
 
           <li>
             <Link
-              className='page-link relative block rounded border-0  bg-transparent px-3 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none'
+              className='page-link relative ml-2 block rounded-lg border-0  bg-transparent px-2 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none'
               href={createPageUrl(currentPage + 1)}
             >
               <IoChevronForwardOutline size={30} />
