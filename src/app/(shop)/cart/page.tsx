@@ -1,14 +1,19 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { Title } from '@/components';
 import { OrderSummary, ProductsInCart } from './ui';
+import { auth } from '@/auth.config';
 
 export const metadata = {
   title: 'Cart',
   description: 'Shopping cart page',
 };
 
-export default function CartPage() {
+export default async function CartPage() {
+  const session = await auth();
+
+  if (!session) redirect('/');
   return (
     <div className='mb-72 flex items-center justify-center px-10 sm:px-0'>
       <div className='flex w-[1000px] flex-col'>

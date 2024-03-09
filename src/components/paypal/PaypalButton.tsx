@@ -59,9 +59,9 @@ export const PaypalButton = ({ amount, orderId }: Props) => {
   };
 
   return (
-    <>
+    <div className='relative z-0'>
       {isPending ? <PaypalButtonSkeleton /> : null}
       <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-    </>
+    </div>
   );
 };

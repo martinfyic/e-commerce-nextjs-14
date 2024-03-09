@@ -6,12 +6,20 @@ export const metadata = {
   description: 'Login page on the sigma shop website',
 };
 
-export default function LoginPage() {
+interface Props {
+  searchParams: {
+    redirectTo?: string;
+  };
+}
+
+export default function LoginPage({ searchParams }: Props) {
+  const redirectTo = searchParams.redirectTo;
+
   return (
     <div className='flex min-h-screen flex-col pt-32 sm:pt-52'>
       <h1 className={`${titleFont.className} mb-5 text-4xl`}>Sign In</h1>
 
-      <LoginForm />
+      <LoginForm redirectTo={redirectTo} />
     </div>
   );
 }

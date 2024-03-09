@@ -16,12 +16,14 @@ import {
   IoTicketOutline,
 } from 'react-icons/io5';
 
-import { useUiStore } from '@/store';
+import { useCartStore, useUiStore, useAddressStore } from '@/store';
 import { logout } from '@/actions';
 
 export const SideBar = () => {
   const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
   const closeMenu = useUiStore((state) => state.closeSideMenu);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const clearAddress = useAddressStore((state) => state.clearAddress);
 
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
@@ -32,6 +34,12 @@ export const SideBar = () => {
   const signInHandler = () => {
     closeMenu();
     router.refresh();
+  };
+
+  const handlerLogout = async () => {
+    clearCart();
+    clearAddress();
+    await logout();
   };
 
   return (
@@ -108,7 +116,7 @@ export const SideBar = () => {
             </Link>
             <button
               className='mt-10 flex w-full items-center rounded p-2 transition-all hover:bg-slate-200/80'
-              onClick={() => logout()}
+              onClick={handlerLogout}
             >
               <IoLogOutOutline size={20} />
               <span className='ml-3 text-lg'>Log Out</span>
@@ -129,15 +137,17 @@ export const SideBar = () => {
               <span className='ml-3 text-lg'>Products</span>
             </Link>
             <Link
-              href='/'
+              href='/admin/orders'
               className='mt-10 flex items-center rounded p-2 transition-all hover:bg-slate-200/80'
+              onClick={() => closeMenu()}
             >
               <IoTicketOutline size={20} />
               <span className='ml-3 text-lg'>Orders</span>
             </Link>
             <Link
-              href='/'
+              href='/admin/users'
               className='mt-10 flex items-center rounded p-2 transition-all hover:bg-slate-200/80'
+              onClick={() => closeMenu()}
             >
               <IoPeopleOutline size={20} />
               <span className='ml-3 text-lg'>Users</span>
