@@ -34,11 +34,11 @@ export async function generateMetadata(
 
   return {
     title: product?.title || 'Product not found',
-    description: product.description || '',
+    description: product?.description || '',
     openGraph: {
       title: product?.title || 'Product not found',
-      description: product.description || '',
-      images: [`/products/${product.images[1]}`],
+      description: product?.description || '',
+      images: [`/products/${product?.images[1]}`],
     },
   };
 }
