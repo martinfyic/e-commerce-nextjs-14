@@ -20,7 +20,7 @@ interface Props {
   };
 }
 
-export default async function OrdersPage({ searchParams }: Props) {
+export default async function AdminOrdersPage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
   const { ok, orders = [], totalPages = 1 } = await getPaginatedOrders({ page });
