@@ -1,3 +1,4 @@
+export * from './product-image';
 export * from './quantity-selector';
 export * from './size-selector';
 export * from './slide-show';
