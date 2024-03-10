@@ -17,7 +17,7 @@ interface Props {
   };
 }
 
-export default async function OrdersPage({ searchParams }: Props) {
+export default async function AdminUsersPage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
   const { ok, users = [], totalPages = 1 } = await getPaginatedUsers({ page });

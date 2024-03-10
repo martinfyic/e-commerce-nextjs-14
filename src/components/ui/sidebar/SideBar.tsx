@@ -130,8 +130,9 @@ export const SideBar = () => {
             {/* Line Separator */}
             <div className='my-10 h-px w-full bg-gray-300' />
             <Link
-              href='/'
+              href='/admin/products'
               className='mt-10 flex items-center rounded p-2 transition-all hover:bg-slate-200/80'
+              onClick={() => closeMenu()}
             >
               <IoShirtOutline size={20} />
               <span className='ml-3 text-lg'>Products</span>

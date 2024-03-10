@@ -6,23 +6,17 @@ export const getProductBySlug = async (slug: string) => {
   try {
     const product = await prisma.product.findFirst({
       include: {
-        ProductImage: {
-          select: {
-            url: true,
-          },
-        },
+        ProductImage: true,
       },
       where: {
         slug: slug,
       },
     });
 
-    if (!product) throw new Error(`There is no product with the slug: ${slug}`);
-
-    const { ProductImage, ...rest } = product;
+    if (!product) return null;
 
     return {
-      ...rest,
+      ...product,
       images: product.ProductImage.map((image) => image.url),
     };
   } catch (error) {
