@@ -40,7 +40,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
         </Link>
       </div>
 
-      <div className='mb-10'>
+      <div className='mb-10 overflow-x-auto'>
         <table className='min-w-full'>
           <thead className='border-b bg-gray-200'>
             <tr>
