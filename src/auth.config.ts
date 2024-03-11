@@ -6,12 +6,10 @@ import bcrypt from 'bcryptjs';
 
 import prisma from '@/lib/prisma';
 
-const authenticatedRoutes = ['/checkout/address', '/profile'];
-
 export const authConfig: NextAuthConfig = {
+  trustHost: true,
   pages: {
-    signIn: '/auth/login',
-    newUser: '/auth/new-account',
+    signIn: `/login`,
   },
 
   callbacks: {
